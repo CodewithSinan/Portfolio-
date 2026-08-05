@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{name}} | {{primaryRole}}</title>
+    <meta name="description" content="Portfolio of {{name}}, a {{primaryRole}}." />
+    
+    <!-- Link to Express public folder -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+    <button id="theme-toggle-btn" class="theme-btn" style="background: none; border: none; cursor: pointer; font-size: 1.2rem; color: inherit;">
+  🌙 / ☀️
+</button>
+    <div class="cursor"></div>
+    <div class="cursor2"></div>
+    <div class="background-glob"></div>
+    <div class="background-glob-2"></div>
+
+    <nav class="navbar">
+      <div class="container nav-container d-flex justify-content-between align-items-center">
+        <a href="#" class="logo">Sinan<span class="accent">.</span></a>
+        <ul class="nav-links d-none d-md-flex mb-0 ps-0">
+          {{#each navLinks}}
+            <li class="ms-4"><a href="{{this.url}}" class="{{this.class}}">{{this.label}}</a></li>
+          {{/each}}
+        </ul>
+        <div class="hamburger d-md-none">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero" id="home">
+      <div class="container hero-container">
+        <div class="row align-items-center">
+          <!-- Hero Text -->
+          <div class="col-lg-7 col-md-12 hero-content mb-5 mb-lg-0 text-center text-lg-start">
+            <span class="greeting">Hello, I'm</span>
+            <h1 class="name">{{name}}</h1>
+            <h2 class="title">
+              {{primaryRole}} <br />
+              <span class="typing-text">{{secondaryRole}}</span>
+            </h2>
+            <p class="bio mx-auto mx-lg-0">{{bio}}</p>
+            <div class="hero-btns d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
+              <a href="#projects" class="btn-primary text-center">View My Work</a>
+              <a href="#contact" class="btn-secondary text-center">Let's Talk</a>
+            </div>
+            <div class="social-links d-flex justify-content-center justify-content-lg-start mt-4">
+              <a href="{{social.linkedin}}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+              <a href="{{social.github}}" target="_blank"><i class="fab fa-github"></i></a>
+              <a href="{{social.instagram}}" target="_blank"><i class="fab fa-instagram"></i></a>
+              <a href="{{social.youtube}}" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+          <!-- Hero Image -->
+          <div class="col-lg-5 col-md-12 hero-visual d-flex justify-content-center mt-5 mt-lg-0">
+            <div class="profile-card glass">
+              <div class="code-badge"><i class="fas fa-code"></i></div>
+              <img src="/images/profile-pic.png" alt="{{name}}" class="profile-img img-fluid" />
+              <div class="exp-badge">
+                <span class="years">{{yearsOfExperience}}+</span>
+                <span class="text">Years Exp.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="about" class="section about">
+      <div class="container">
+        <h2 class="section-title text-center">About Me</h2>
+        <div class="row align-items-center g-5 about-grid">
+          <div class="col-lg-6">
+            <div class="about-text glass p-4 p-md-5 h-100">
+              <p>{{aboutText1}}</p>
+              <p>{{aboutText2}}</p>
+              <div class="stats d-flex flex-wrap gap-4 mt-4">
+                {{#each stats}}
+                  <div class="stat-item">
+                    <span class="stat-num">{{this.number}}+</span>
+                    <span class="stat-desc">{{this.description}}</span>
+                  </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="about-visual">
+              <div class="code-block glass">
+                <div class="window-header">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                  <span class="window-title">about_me.js</span>
+                </div>
+                <pre class="m-0"><code>class Developer:
+    constructor(self):
+        this.name = "{{name}}"
+        this.role = "Lead Engineer"
+        this.passion = ["Coding", "Speaking"]
+
+    buildfuture(self):
+        return "Innovation"</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section skills">
+      <div class="container">
+        <h2 class="section-title text-center">Expertise & Skills</h2>
+        <div class="row g-4 skills-grid">
+          {{#each skillCategories}}
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="skill-category glass h-100 p-4">
+                <h3><i class="{{this.icon}}"></i> {{this.title}}</h3>
+                <ul class="skill-list d-flex flex-wrap gap-2 ps-0 mb-0">
+                  {{#each this.skills}}
+                    <li>{{this}}</li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section projects">
+      <div class="container">
+        <h2 class="section-title text-center">Featured Projects</h2>
+        <div class="row g-4 projects-grid">
+          {{#each projects}}
+            <!-- Replaced custom 'col-span' logic with Bootstrap's grid sizing. -->
+            <div class="col-12 col-md-6 col-lg-4 {{this.gridClass}}">
+              <div class="project-card glass h-100 d-flex flex-column">
+                <div class="project-img">
+                  <div class="img-placeholder w-100 h-100" style="background: {{this.gradient}}"></div>
+                </div>
+                <div class="project-info p-4 flex-grow-1 d-flex flex-column">
+                  <h3>{{this.title}}</h3>
+                  <p class="flex-grow-1">{{this.description}}</p>
+                  <div class="tech-stack d-flex flex-wrap gap-2">
+                    {{#each this.techStack}}
+                      <span>{{this}}</span>
+                    {{/each}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section services">
+      <div class="container">
+        <h2 class="section-title text-center">My Services</h2>
+        <div class="row g-4 services-grid">
+          {{#each services}}
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="service-card glass h-100 p-4 text-center">
+                <i class="{{this.icon}} service-icon mb-3"></i>
+                <h3>{{this.title}}</h3>
+                <p class="mb-0">{{this.description}}</p>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <div class="container">
+        <h2 class="section-title text-center">Get In Touch</h2>
+        <!-- Using row and g-0 removes the gap, mimicking your previous split-card design -->
+        <div class="row g-0 contact-wrapper glass overflow-hidden rounded-4">
+          <div class="col-lg-5">
+            <div class="contact-info h-100 p-4 p-md-5" style="background: rgba(0, 0, 0, 0.3);">
+              <h3 class="mb-3">Lets Build Something Amazing</h3>
+              <p class="mb-4">Have a project in mind or want to invite me for a talk? Feel free to reach out.</p>
+              
+              <div class="contact-info-item d-flex gap-3 mb-4">
+                <i class="fas fa-envelope mt-1 text-info"></i>
+                <div>
+                  <strong class="d-block">Email</strong>
+                  <p class="mb-0">{{email}}</p>
+                </div>
+              </div>
+              
+              <div class="contact-info-item d-flex gap-3 mb-4">
+                <i class="fas fa-map-marker-alt mt-1 text-info"></i>
+                <div>
+                  <strong class="d-block">Location</strong>
+                  <p class="mb-0">{{location}}</p>
+                </div>
+              </div>
+              
+              <div class="contact-info-item d-flex gap-3">
+                <i class="fas fa-phone mt-1 text-info"></i>
+                <div>
+                  <strong class="d-block">Response Time</strong>
+                  <p class="mb-0">Within 24 hours</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-7">
+            <form class="contact-form h-100 p-4 p-md-5 d-flex flex-column gap-3">
+              <div class="form-group">
+                <label for="name" class="form-label">Full Name *</label>
+                <input type="text" id="name" name="name" class="form-control bg-transparent text-light border-secondary" placeholder="Enter Your Name" required />
+              </div>
+              <div class="form-group">
+                <label for="email" class="form-label">Email Address *</label>
+                <input type="email" id="email" name="email" class="form-control bg-transparent text-light border-secondary" placeholder="Enter your Email" required />
+              </div>
+              <div class="form-group">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" id="phone" name="phone" class="form-control bg-transparent text-light border-secondary" placeholder="Enter your Phone no" />
+              </div>
+              <div class="form-group">
+                <label for="subject" class="form-label">Subject *</label>
+                <input type="text" id="subject" name="subject" class="form-control bg-transparent text-light border-secondary" placeholder="Project Inquiry" required />
+              </div>
+              <div class="form-group">
+                <label for="message" class="form-label">Message *</label>
+                <textarea id="message" name="message" class="form-control bg-transparent text-light border-secondary" placeholder="Tell me about your project..." rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn-primary mt-3 border-0 rounded-pill py-2">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/javascripts/script.js"></script>
+  </body>
+</html>
