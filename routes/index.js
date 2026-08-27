@@ -7,8 +7,16 @@ const Contact = require('../utils/contactModel');
 
 // ============ HOME PAGE ============
 router.get('/', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '..', 'public', 'react', 'index.html'));
+});
+
+/*
+  The portfolio content below is retained as the backend's data contract while
+  the browser application is now rendered by React.
+*/
+router.get('/legacy', function(req, res, next) {
   res.render('index', { 
-    layout: false, 
+    layout: false,
     
     name: "Muhammed Sinan",
     primaryRole: "Lead Software Engineer",

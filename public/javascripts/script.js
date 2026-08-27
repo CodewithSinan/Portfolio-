@@ -246,11 +246,12 @@ const navbar = document.querySelector('.navbar');
 
 window.addEventListener('scroll', () => {
   const scrollTop = window.scrollY;
+  const isLightTheme = document.body.classList.contains('light-theme');
   
   if (scrollTop > 100) {
-    navbar.style.background = 'rgba(10, 10, 10, 0.8)';
+    navbar.style.background = isLightTheme ? 'rgba(255, 255, 255, 0.96)' : 'rgba(10, 10, 10, 0.8)';
   } else {
-    navbar.style.background = 'rgba(10, 10, 10, 0.6)';
+    navbar.style.background = isLightTheme ? 'rgba(255, 255, 255, 0.88)' : 'rgba(10, 10, 10, 0.6)';
   }
   
   lastScrollTop = scrollTop;
@@ -319,11 +320,17 @@ const body = document.body;
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light') {
   body.classList.add('light-theme');
+  themeToggleBtn.innerHTML = '<i class="fas fa-sun" aria-hidden="true"></i>';
+  themeToggleBtn.setAttribute('aria-label', 'Switch to dark theme');
 }
 
 // 2. ബട്ടൺ ക്ലിക്ക് ചെയ്യുമ്പോൾ തീം മാറ്റുക
 themeToggleBtn.addEventListener('click', () => {
   body.classList.toggle('light-theme');
+  themeToggleBtn.innerHTML = body.classList.contains('light-theme')
+    ? '<i class="fas fa-sun" aria-hidden="true"></i>'
+    : '<i class="fas fa-moon" aria-hidden="true"></i>';
+  themeToggleBtn.setAttribute('aria-label', body.classList.contains('light-theme') ? 'Switch to dark theme' : 'Switch to light theme');
   
   // 3. നിലവിലെ തീം ലോക്കൽ സ്റ്റോറേജിൽ സേവ് ചെയ്യുക
   if (body.classList.contains('light-theme')) {
