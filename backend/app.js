@@ -15,7 +15,21 @@ var indexRouter = require('./routes/index');
 var app = express();
 
 // ============ Security Middleware ============
-app.use(helmet()); // Security headers
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com", "data:"],
+        imgSrc: ["'self'", "data:", "blob:", "https:"],
+        connectSrc: ["'self'"]
+      }
+    },
+    crossOriginEmbedderPolicy: false
+  })
+);
 
 // Rate limiting
 const limiter = rateLimit({
@@ -37,10 +51,11 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
-// This line is crucial: It tells Express to serve static files (CSS, JS, Images) from the 'public' folder
+// Static file serving: React frontend dist, public folder assets, and bootstrap
+app.use(express.static(path.join(__dirname, 'public', 'react')));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/bootstrap/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
-app.use('/bootstrap/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
+app.use('/bootstrap/css', express.static(path.join(__dirname, '..', 'node_modules', 'bootstrap', 'dist', 'css')));
+app.use('/bootstrap/js', express.static(path.join(__dirname, '..', 'node_modules', 'bootstrap', 'dist', 'js')));
 
 // ============ Routes ============
 app.use('/', indexRouter);

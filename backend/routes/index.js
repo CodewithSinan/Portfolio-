@@ -156,17 +156,25 @@ router.post('/api/contact', [
         errors: errors.array() 
       });
     }
-    // 1. ഡാറ്റാബേസിലേക്ക് സേവ് ചെയ്യുക
-const newContact = new Contact({
-  name: req.body.name,
-  email: req.body.email,
-  phone: req.body.phone,
-  subject: req.body.subject,
-  message: req.body.message
-});
-await newContact.save();
+    // 1. Save to database if connected
+    let dbSaved = false;
+    try {
+      if (Contact.db && Contact.db.readyState === 1) {
+        const newContact = new Contact({
+          name: req.body.name,
+          email: req.body.email,
+          phone: req.body.phone,
+          subject: req.body.subject,
+          message: req.body.message
+        });
+        await newContact.save();
+        dbSaved = true;
+      }
+    } catch (dbErr) {
+      console.error('Database save error:', dbErr.message);
+    }
 
-    // Send email to admin
+    // 2. Send email to admin
     const emailResult = await sendContactEmail(req.body);
     
     if (emailResult.success) {
@@ -177,10 +185,15 @@ await newContact.save();
         success: true, 
         message: 'Your message has been sent successfully! I\'ll get back to you soon.' 
       });
+    } else if (dbSaved) {
+      return res.status(200).json({
+        success: true,
+        message: 'Your message has been received! I\'ll get back to you soon.'
+      });
     } else {
-      return res.status(500).json({ 
-        success: false, 
-        message: 'Failed to send email. Please try again later.' 
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to send message. Please reach out directly or try again later.'
       });
     }
   } catch (error) {

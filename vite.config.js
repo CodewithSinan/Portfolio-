@@ -5,11 +5,11 @@ import path from 'node:path';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/react/',
-  root: 'client',
+  base: '/',
+  root: 'frontend',
   publicDir: false,
   build: {
-    outDir: path.resolve(__dirname, 'public/react'),
+    outDir: path.resolve(__dirname, 'backend/public/react'),
     emptyOutDir: true,
     rollupOptions: {
       output: {

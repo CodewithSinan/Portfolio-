@@ -4,9 +4,11 @@
   "private": true,
   "description": "Professional Portfolio Website",
   "scripts": {
-    "start": "nodemon ./bin/www",
-    "dev": "nodemon ./bin/www",
+    "start": "nodemon ./backend/bin/www",
+    "dev": "nodemon ./backend/bin/www",
+    "dev:frontend": "vite",
     "build": "vite build",
+    "build:frontend": "vite build",
     "build:watch": "vite build --watch"
   },
   "dependencies": {
