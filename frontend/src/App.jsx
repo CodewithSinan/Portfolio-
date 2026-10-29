@@ -212,32 +212,66 @@ function ThemeToggle() {
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
+
+      const sections = ['home', 'about', 'skills', 'projects', 'services', 'contact'];
+      const scrollPos = window.scrollY + 140;
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <nav className={`navbar px-3 py-2 sm:px-5 lg:px-7 ${scrolled ? 'navbar-scrolled' : ''}`}>
+    <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
       <div className="container nav-container mx-auto w-full max-w-7xl">
         <a href="#home" className="logo" onClick={() => setMenuOpen(false)}>
-          Sinan<span className="accent">.</span>
+          <span className="logo-badge">&lt;/&gt;</span>
+          <span>Sinan<span className="accent">.</span></span>
         </a>
 
         <ul className={`nav-links ${menuOpen ? 'mobile-open' : ''}`}>
-          {portfolio.navLinks.map(([id, label]) => (
-            <li key={id}>
-              <a
-                href={`#${id}`}
-                className={id === 'contact' ? 'btn-primary btn-sm' : ''}
-                onClick={() => setMenuOpen(false)}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
+          {portfolio.navLinks.map(([id, label]) => {
+            if (id === 'contact') {
+              return (
+                <li key={id}>
+                  <a
+                    href={`#${id}`}
+                    className="nav-cta-btn"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <span>Let's Talk</span>
+                    <i className="fas fa-arrow-right ms-1 text-xs" />
+                  </a>
+                </li>
+              );
+            }
+            return (
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  className={`nav-link-item ${activeSection === id ? 'active' : ''}`}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {label}
+                </a>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="nav-actions">
@@ -260,6 +294,7 @@ function Header() {
 
 function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
+  const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -310,21 +345,54 @@ function Hero() {
           </div>
 
           <div className="col-lg-5 col-md-12 hero-visual d-flex justify-content-center mt-4 mt-lg-0">
-            <div className="profile-card glass">
-              <div className="code-badge" title="Code Excellence">
+            <div className="profile-round-container">
+              {/* Ambient Radial Aura Glow */}
+              <div className="profile-ambient-glow" />
+
+              {/* Rotating Glowing Conic Ring */}
+              <div className="profile-spin-ring" />
+
+              {/* High-Tech Counter-Rotating Dashed Orbit */}
+              <div className="profile-tech-ring" />
+
+              {/* Core Circular Glass Housing */}
+              <div className={`profile-circle ${imgError ? 'has-error' : ''}`}>
+                <img
+                  src="/images/profile-pic.png?v=3"
+                  alt={portfolio.name}
+                  className="profile-img"
+                  loading="eager"
+                  onError={() => {
+                    setImgError(true);
+                  }}
+                />
+                {imgError && (
+                  <div className="profile-fallback-avatar">
+                    <i className="fas fa-user-astronaut" />
+                  </div>
+                )}
+              </div>
+
+              {/* Floating Badge 1: Code */}
+              <div className="floating-badge badge-code" title="Code Excellence & Architecture">
                 <i className="fas fa-code" />
               </div>
-              <img
-                src="/images/profile-pic.png"
-                alt={portfolio.name}
-                className="profile-img img-fluid"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-              <div className="exp-badge">
-                <span className="years">5+</span>
-                <span className="text">Years Exp.</span>
+
+              {/* Floating Badge 2: Tech Lead */}
+              <div className="floating-badge badge-lead" title="Lead Software Engineer">
+                <i className="fas fa-terminal" />
+              </div>
+
+              {/* Floating Badge 3: Years of Experience */}
+              <div className="floating-badge badge-exp" title="5+ Years of Industry Experience">
+                <span className="exp-number">5+</span>
+                <span className="exp-label">Years Exp</span>
+              </div>
+
+              {/* Floating Badge 4: Live Status */}
+              <div className="floating-badge badge-status" title="Open to high-impact opportunities">
+                <span className="status-ping" />
+                <span className="status-label">Available for Work</span>
               </div>
             </div>
           </div>

@@ -9,7 +9,7 @@ export default defineConfig({
   root: 'frontend',
   publicDir: false,
   build: {
-    outDir: path.resolve(__dirname, 'backend/public/react'),
+    outDir: path.resolve(import.meta.dirname, 'backend/public/react'),
     emptyOutDir: true,
     rollupOptions: {
       output: {

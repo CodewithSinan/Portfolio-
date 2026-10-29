@@ -23,20 +23,29 @@
 
     <nav class="navbar">
       <div class="container nav-container d-flex justify-content-between align-items-center">
-        <a href="#" class="logo">Sinan<span class="accent">.</span></a>
+        <a href="#home" class="logo">
+          <span class="logo-badge">&lt;/&gt;</span>
+          <span>Sinan<span class="accent">.</span></span>
+        </a>
         <ul class="nav-links d-none d-md-flex mb-0 ps-0">
           {{#each navLinks}}
-            <li class="ms-4"><a href="{{this.url}}" class="{{this.class}}">{{this.label}}</a></li>
+            {{#if this.class}}
+              <li><a href="{{this.url}}" class="nav-cta-btn"><span>{{this.label}}</span> <i class="fas fa-arrow-right ms-1 text-xs"></i></a></li>
+            {{else}}
+              <li><a href="{{this.url}}" class="nav-link-item">{{this.label}}</a></li>
+            {{/if}}
           {{/each}}
         </ul>
-        <div class="hamburger d-md-none">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
+        <div class="nav-actions">
+          <button id="theme-toggle-btn" class="theme-btn" type="button" aria-label="Switch theme" title="Switch theme">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </button>
+          <div class="hamburger d-md-none">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
         </div>
-        <button id="theme-toggle-btn" class="theme-btn" type="button" aria-label="Switch theme" title="Switch theme">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </button>
       </div>
     </nav>
 
@@ -65,12 +74,49 @@
           </div>
           <!-- Hero Image -->
           <div class="col-lg-5 col-md-12 hero-visual d-flex justify-content-center mt-5 mt-lg-0">
-            <div class="profile-card glass">
-              <div class="code-badge"><i class="fas fa-code"></i></div>
-              <img src="/images/profile-pic.png" alt="{{name}}" class="profile-img img-fluid" />
-              <div class="exp-badge">
-                <span class="years">{{yearsOfExperience}}+</span>
-                <span class="text">Years Exp.</span>
+            <div class="profile-round-container">
+              <!-- Ambient Radial Aura Glow -->
+              <div class="profile-ambient-glow"></div>
+
+              <!-- Rotating Glowing Conic Ring -->
+              <div class="profile-spin-ring"></div>
+
+              <!-- High-Tech Counter-Rotating Dashed Orbit -->
+              <div class="profile-tech-ring"></div>
+
+              <!-- Core Circular Glass Housing -->
+              <div class="profile-circle">
+                <img
+                  src="/images/profile-pic.png?v=3"
+                  alt="{{name}}"
+                  class="profile-img"
+                  onerror="this.style.display='none';this.parentElement.classList.add('has-error');"
+                />
+                <div class="profile-fallback-avatar">
+                  <i class="fas fa-user-astronaut"></i>
+                </div>
+              </div>
+
+              <!-- Floating Badge 1: Code -->
+              <div class="floating-badge badge-code" title="Code Excellence & Architecture">
+                <i class="fas fa-code"></i>
+              </div>
+
+              <!-- Floating Badge 2: Tech Lead -->
+              <div class="floating-badge badge-lead" title="Lead Software Engineer">
+                <i class="fas fa-terminal"></i>
+              </div>
+
+              <!-- Floating Badge 3: Years of Experience -->
+              <div class="floating-badge badge-exp" title="5+ Years of Industry Experience">
+                <span class="exp-number">{{yearsOfExperience}}+</span>
+                <span class="exp-label">Years Exp</span>
+              </div>
+
+              <!-- Floating Badge 4: Live Status -->
+              <div class="floating-badge badge-status" title="Open to high-impact opportunities">
+                <span class="status-ping"></span>
+                <span class="status-label">Available for Work</span>
               </div>
             </div>
           </div>

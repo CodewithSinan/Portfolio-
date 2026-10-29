@@ -90,13 +90,6 @@ router.get('/legacy', function(req, res, next) {
         description: "High-performance e-commerce backend architected with microservices for scalability and robustness.",
         techStack: ["Django", "Docker", "Kubernetes"],
         link: "#"
-      },{
-        gridClass: "col-span-1 row-span-2",
-        gradient: "linear-gradient(45deg, #11998e, #38ef7d)",
-        title: "E-Commerce Microservices",
-        description: "High-performance e-commerce backend architected with microservices for scalability and robustness.",
-        techStack: ["Django", "Docker", "Kubernetes"],
-        link: "#"
       }
     ],
     
